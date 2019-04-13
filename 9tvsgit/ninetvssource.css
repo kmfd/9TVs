@@ -1,0 +1,49 @@
+/* ninetvsHTML.css */
+
+html{ 
+	height:100%
+}
+
+body {
+    background-color: #111111;
+    height: 100%;
+	width: auto;
+	padding: 40px;
+}
+
+h1{
+	color: orange;
+	font-size:30px;
+}
+
+h2 {
+    color: #ffffff;
+	font-size: 26px;
+}
+
+.index{
+	max-width: 450px;
+	margin-right: 20px;
+	
+}
+
+
+.index p a {
+	float: right;
+	
+}
+
+
+
+
+a{
+	font-size: 20px;
+	color: yellow;
+	
+}
+
+p, xmp {
+	color: #fff;
+	font-size: 20px;
+}
+

@@ -1,0 +1,47 @@
+9tvs
+-------------------
+-------------------
+things wrong with the description of 9tvs
+
+add how to load local files
+examples of m3u
+how to make your own m3u
+change the buttons to orange for a bit more clarity
+links to downloads
+add an image for what it should look like
+how to search for m3us
+include text copies of the html, js and css with links from the description or home page
+----------------------
+
+
+
+
+view current list queue
+
+reorganize crop buttons 
+
+reorganize start loop to be individual toggles
+
+set start loop and aspect to show current status
+
+instructions
+
+
+
+
+reorganize buttons like this:
+
+
+[1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]     
+[1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]    
+[1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]    [1][1][1]    
+[__all__]    [__all__]    [__all__]    [__all__]    [__all__]    [__all__]    
+aspect       crop		  next         stop         reload       loopstart
+
+
+log
+
+parseURLS
+
+shuffle
+
