@@ -1,25 +1,37 @@
-
+8888
 
 window.goodstuff = []
+window.end=''
 
 function next(arg){
 		let video = document.getElementById('video'+arguments[0]);
+		document.getElementById(eval("'drop'+arguments[0]")).innerHTML = '<li>'+ window.goodstuff[0] +'</li>';
+		let nexted=window.goodstuff[0]
 		if ((/m3u|\.ts/).test(window.goodstuff[0])){
-			console.log('next '+arguments[0]+': m3u/ts found...')	
+			console.log('next '+arguments[0]+': m3u/ts found...')
 			loadhls(arguments[0]);
-		
+		}
+		if ((/m3u|\.ts/).test(window.goodstuff[0])){
+			console.log('next '+arguments[0]+': m3u/ts found...')
+			loadhls(arguments[0]);
+
+
 		}else if ((/\.mp4$/).test(window.goodstuff[0])){
-			 console.log('mp4 found...') 
+			 console.log('mp4 found...');
 			video.src = window.goodstuff.shift();
-			console.log('next '+arguments[0]+': '+video.src)
+			console.log('next '+arguments[0]+': '+video.src);
 			video.type = 'video/mp4';
 			video.play();
-		}
-		 if ((/\.mkv$/).test(window.goodstuff[0])){
+			console.log('loaded');
+
+		}else if ((/\.mkv$/).test(window.goodstuff[0])){
 			video.src = window.goodstuff.shift();
 			console.log('next '+arguments[0]+': mkv not supported on Firefox')
 			video.type = 'video/x-matroska';
 			video.play();
+
+		}else if (nexted==window.goodstuff[0]){
+			console.log(window.goodstuff.shift()+' was unplayable, next...')
 		}
 
 
@@ -69,7 +81,7 @@ function stopall(){
 
 function stop(arg){
     let video = document.getElementById('video'+arguments[0]);
-    next('1');
+    video.load();
 };
 
 function loadhls(arg){
@@ -92,10 +104,16 @@ function loadhls(arg){
             video.play();
           });
         }
-}	
-		
+}
+
 function shuffle(a) { let j, x, i; for (i = a.length; i; i--) { j = Math.floor(Math.random() * i); x = a[i - 1]; a[i - 1] = a[j]; a[j] = x; }; console.log('shuffling...')}
-		
+
+
+
+document.getElementById("filebutton").onclick = function() {
+    document.getElementById("files").click();
+}
+
 document.getElementById("next-1").onclick = function() {
   next('1');
 };
@@ -217,6 +235,23 @@ document.getElementById("shuffle").onclick = function() {
   shuffle(window.goodstuff);
 };
 
+document.getElementById("loopnext").onclick = function() {
+  window.end='next';
+	console.log('loop next enabled');
+};
+
+
+document.getElementById("loopsame").onclick = function() {
+  window.end='restartsame';
+	console.log('loop restart enabled');
+};
+
+
+document.getElementById("loopoff").onclick = function() {
+  window.end='off';
+	console.log('loop off');
+};
+
 function handleFileSelect(evt) {
     let files = evt.target.files; // FileList object
 
@@ -252,7 +287,7 @@ function handleFileSelect(evt) {
 						urls[i] = window.goodstuff[i];
 					} else if (re.test(window.goodstuff[i])) {
 					} else {
-                         
+
 						window.goodstuff[i] = 'file:///' + window.goodstuff[i];
 					}
 
@@ -270,6 +305,107 @@ function handleFileSelect(evt) {
   }
 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+
+
+document.getElementById('video1').addEventListener('ended',autoNext1,false);
+    function autoNext1(e) {
+			if (window.end.match('next')){
+		    console.log('video1 autonext');
+			  next('1');
+			} else if (window.end.match('restart')){
+				console.log('video1 autorestart');
+				start('1');
+			}
+}
+
+document.getElementById('video2').addEventListener('ended',autoNext2,false);
+    function autoNext2(e) {
+			if (window.end.match('next')){
+		    console.log('video2 autonext');
+			  next('2');
+			} else if (window.end.match('restart')){
+				console.log('video2 autorestart');
+				start('2');
+			}
+}
+
+document.getElementById('video3').addEventListener('ended',autoNext3,false);
+    function autoNext3(e) {
+			if (window.end.match('next')){
+		    console.log('video3 autonext');
+			  next('3');
+			} else if (window.end.match('restart')){
+				console.log('video3 autorestart');
+				start('3');
+			}
+}
+
+document.getElementById('video4').addEventListener('ended',autoNext4,false);
+    function autoNext4(e) {
+			if (window.end.match('next')){
+		    console.log('video4 autonext');
+			  next('4');
+			} else if (window.end.match('restart')){
+				console.log('video4 autorestart');
+				start('4');
+			}
+}
+
+document.getElementById('video5').addEventListener('ended',autoNext5,false);
+    function autoNext5(e) {
+			if (window.end.match('next')){
+		    console.log('video5 autonext');
+			  next('5');
+			} else if (window.end.match('restart')){
+				console.log('video5 autorestart');
+				start('5');
+			}
+}
+
+document.getElementById('video6').addEventListener('ended',autoNext6,false);
+    function autoNext6(e) {
+			if (window.end.match('next')){
+		    console.log('video6 autonext');
+			  next('6');
+			} else if (window.end.match('restart')){
+				console.log('video6 autorestart');
+				start('6');
+			}
+}
+
+document.getElementById('video7').addEventListener('ended',autoNext7,false);
+    function autoNext7(e) {
+			if (window.end.match('next')){
+		    console.log('video7 autonext');
+			  next('7');
+			} else if (window.end.match('restart')){
+				console.log('video7 autorestart');
+				start('7');
+			}
+}
+
+document.getElementById('video8').addEventListener('ended',autoNext8,false);
+    function autoNext8(e) {
+			if (window.end.match('next')){
+		    console.log('video8 autonext');
+			  next('8');
+			} else if (window.end.match('restart')){
+				console.log('video8 autorestart');
+				start('8');
+			}
+}
+
+document.getElementById('video9').addEventListener('ended',autoNext9,false);
+    function autoNext9(e) {
+			if (window.end.match('next')){
+		    console.log('video9 autonext');
+			  next('9');
+			} else if (window.end.match('restart')){
+				console.log('video9 autorestart');
+				start('9');
+			}
+}
 
 document.getElementById('video1').addEventListener("error", errfn);
 function errfn(arg){
@@ -329,7 +465,7 @@ function errfn8(arg){
 };
 document.getElementById('video9').addEventListener("error", errfn9);
 function errfn9(arg){
-	
+
 	console.log('video9 media unplayable, trying the next...');
 	setTimeout(function(){
 	next('9');
