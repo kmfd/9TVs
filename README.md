@@ -44,4 +44,5 @@ https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8
 * Prehistoric development
 * Video list log output
 * Better index shifting
+
 VLC-based, had some Youtube support, had support for more streams that were not m3u8-based, had aspect ration and cropping control.
