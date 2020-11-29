@@ -39,11 +39,11 @@ https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8
 ## 2020
 * Massive refactor to switch to HTML5 and HLS.js implementation
 * Implemented keyboard controls
+* Better index shifting
 
 ## 2019
 * Prehistoric development
 * Video list log output
-* Better index shifting
 * VLC-based
 * Had some Youtube support
 * Had support for more streams that were not m3u8-based (via VLC)
