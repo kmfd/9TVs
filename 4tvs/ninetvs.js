@@ -13,11 +13,47 @@ window.nexting = Array.apply({
   length: 4
 });
 
+function nameVideo(arg) {
+var vidnum = 'video' + arguments[0];
+return vidnum;
+}
+
+function removeVideo(arg) {
+  var vidnum = nameVideo(arguments[0]);
+  videoToRemove = document.getElementById(vidnum)
+  videoToRemove.parentNode.removeChild(videoToRemove);
+}
+
+function addVideo(arg) {
+  var vidnum = nameVideo(arguments[0]);
+  var video = document.createElement('video');
+  video.setAttribute('id', vidnum);
+  video.setAttribute('controls', '');
+  video.setAttribute('mute', '');
+  video.setAttribute('class', 'vid');
+  videoToRemove = document.getElementById(vidnum)
+  videoToRemove.parentNode.replaceChild(video, videoToRemove);
+}
+
+function addYouTube(arg) {
+  var vidnum = nameVideo(arguments[0]);
+  var iframe = document.createElement('iframe');
+  iframe.setAttribute('id', vidnum);
+  iframe.setAttribute('allowfullscreen', '');
+  iframe.setAttribute('width', '560');
+  iframe.setAttribute('height', '315');
+  iframe.setAttribute('src', '//www.youtube.com/embed/YE7VzlLtp-4');
+  videoToRemove = document.getElementById(vidnum)
+  videoToRemove.parentNode.replaceChild(iframe, videoToRemove);
+}
+
 function next(arg) {
   if (window.goodstuff.length != 0) {
     window.playing[arguments[0] - 1] = 0;
+
+    // if the one we're trying to load isnt the one that's currently playing
     if (skipcurrent()) {
-      let video = document.getElementById('video' + arguments[0]);
+      let video = document.getElementById(nameVideo(arguments[0]));
       document.getElementById(eval("'drop'+arguments[0]")).innerHTML = '<li>' + window.goodstuff[window.toLoad] + '</li>';
       window.current.splice(eval("arguments[0]-1"), 1, window.goodstuff[window.toLoad]);
       if ((/\.mp4$/).test(window.goodstuff[window.toLoad])) {
@@ -50,7 +86,7 @@ function next(arg) {
           window.nexting[arguments[0] - 1] = 0;
           console.log('nexting is 1, setting to 0');
         }
-      }, 30000, arg);
+      }, 8000, arg);
     }
   };
 };
