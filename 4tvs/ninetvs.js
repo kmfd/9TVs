@@ -13,6 +13,7 @@ window.nexting = Array.apply({
   length: 4
 });
 
+
 function nameVideo(arg) {
 var videoNum = 'video' + arguments[0];
 return videoNum;
@@ -29,7 +30,7 @@ function addVideo(arg) {
   var video = document.createElement('video');
   video.setAttribute('id', videoNum);
   video.setAttribute('controls', '');
-  video.setAttribute('muted', '');
+  video.setAttribute('muted', 'muted');
   video.setAttribute('class', 'vid');
   videoToRemove = document.getElementById(videoNum)
   videoToRemove.parentNode.replaceChild(video, videoToRemove);
@@ -48,7 +49,7 @@ function addYouTube(arg) {
 }
 
 function isYT(item) {
-  let pattern = new RegExp("(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be.com\/\S*(?:watch|embed)(?:(?:(?=\/[^&\s\?]+(?!\S))\/)|(?:\S*v=|v\/)))([^&\s\?]+)");
+  let pattern = new RegExp("(https?)?(:\/\/)?(www.)?(?:youtube\.com|youtu\.be)\/(?!(feed\/|channel\/|c\/)).*([A-Za-z0-9_]){11}(&.*)?");
   if (pattern.test(item)) {
    return true
   } else {
@@ -57,29 +58,20 @@ function isYT(item) {
 }
 
 function next(arg) {
-  let tvNum = arguments[0]
-  let tvIndex = tvNum - 1
   if (window.goodstuff.length != 0) {
-    window.playing[tvIndex] = 0;
-    if (isYT(window.goodstuff[window.toLoad])) {
-      addYouTube(tvNum)
-    } else {
-      addVideo(tvNum)
-    }
-    // if the one we're trying to load isnt the one that's currently playing
+    window.playing[arguments[0] - 1] = 0;
     if (skipcurrent()) {
-      let video = document.getElementById(nameVideo(tvNum));
-
-      document.getElementById(eval("'drop'+tvNum")).innerHTML = '<li>' + window.goodstuff[window.toLoad] + '</li>';
-      window.current.splice(eval("tvIndex"), 1, window.goodstuff[window.toLoad]);
+      let video = document.getElementById('video' + arguments[0]);
+      document.getElementById(eval("'drop'+arguments[0]")).innerHTML = '<li>' + window.goodstuff[window.toLoad] + '</li>';
+      window.current.splice(eval("arguments[0]-1"), 1, window.goodstuff[window.toLoad]);
       if ((/\.mp4$/).test(window.goodstuff[window.toLoad])) {
-        playmp4(tvNum);
+        playmp4(arguments[0]);
       } else //if ((/m3u|\.ts/).test(window.goodstuff[window.toLoad]))
       {
-        console.log('next ' + tvNum + ': trying m3u/ts...')
-        loadhls(tvNum);
+        console.log('next ' + arguments[0] + ': trying m3u/ts...')
+        loadhls(arguments[0]);
         //  } else {
-        //    cantplay(tvNum);
+        //    cantplay(arguments[0]);
       };
     } else {
       console.log("nothing in the queue that isn't on the grid");
@@ -88,29 +80,28 @@ function next(arg) {
     if (window.all == 0) {
       console.log(window.current);
     }
-
     iterate();
-    if ((window.nexting[tvIndex] == 0 || window.nexting[tvIndex] == undefined)) {
+    if ((window.nexting[arguments[0] - 1] == 0 || window.nexting[arguments[0] - 1] == undefined)) {
       console.log('nexting is 0 or undefined, setting to 1');
-      window.nexting[tvIndex] = 1;
+      window.nexting[arguments[0] - 1] = 1;
       setTimeout(function() {
-        if (window.playing[tvIndex] == 0) {
-          console.log('timeout, next ' + tvNum + ". nexting is 1, setting to 0");
-          window.nexting[tvIndex] = 0;
-          next(tvNum);
+        if (window.playing[arguments[0] - 1] == 0) {
+          console.log('timeout, next ' + arguments[0] + ". nexting is 1, setting to 0");
+          window.nexting[arguments[0] - 1] = 0;
+          next(arguments[0]);
         } else {
-          console.log("timeout " + tvNum + " passed")
-          window.nexting[tvIndex] = 0;
+          console.log("timeout " + arguments[0] + " passed")
+          window.nexting[arguments[0] - 1] = 0;
           console.log('nexting is 1, setting to 0');
         }
-      }, 3800, arg);
+      }, 8000, arg);
     }
   };
 };
 
 
 function loadhls(arg) {
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   if (Hls.isSupported()) {
     console.log('Loading HLS: ' + window.goodstuff[window.toLoad]);
     var config = {
@@ -173,7 +164,7 @@ function skipcurrent() {
 
 function playmp4(arg) {
   console.log('mp4 found...');
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   video.src = window.goodstuff[window.toLoad];
   console.log('next ' + arguments[0] + ': ' + video.src);
   video.type = 'video/mp4';
@@ -184,7 +175,7 @@ function playmp4(arg) {
 
 function cantplay(arg) {
   if ((/\.mkv$/).test(window.goodstuff[window.toLoad])) {
-    let video = document.getElementById(nameVideo(arguments[0]));
+    let video = document.getElementById('video' + arguments[0]);
     video.src = window.goodstuff[window.toLoad];
     console.log('next ' + arguments[0] + ': mkv not supported on Firefox');
     video.type = 'video/x-matroska';
@@ -198,7 +189,7 @@ function cantplay(arg) {
 
 
 function start(arg) {
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   video.play();
 };
 
@@ -211,7 +202,7 @@ function startall() {
 };
 
 function skip(arg) {
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   video.currentTime = video.currentTime + 30;
 };
 
@@ -232,7 +223,7 @@ function stopall() {
 };
 
 function stop(arg) {
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   video.load();
 };
 
