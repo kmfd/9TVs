@@ -1,21 +1,16 @@
 window.goodstuff = [];
 window.end = '';
-window.current = Array.apply({
-  length: 4
-});
-window.playing = Array.apply({
-  length: 4
-});
+window.current = new Array(4).fill(null);
+window.playing = new Array(4).fill(null);
 window.toLoad = 0;
 window.all = 0;
 window.looplist = 0;
-window.nexting = Array.apply({
-  length: 4
-});
+window.nexting = new Array(4).fill(null);
+
 
 function nameVideo(arg) {
-var videoNum = 'video' + arguments[0];
-return videoNum;
+  var videoNum = 'video' + arguments[0];
+  return videoNum;
 }
 
 function removeVideo(arg) {
@@ -24,54 +19,96 @@ function removeVideo(arg) {
   videoToRemove.parentNode.removeChild(videoToRemove);
 }
 
-function addVideo(arg) {
-  var videoNum = nameVideo(arguments[0]);
-  var video = document.createElement('video');
-  video.setAttribute('id', videoNum);
-  video.setAttribute('controls', '');
-  video.setAttribute('muted', '');
-  video.setAttribute('class', 'vid');
-  videoToRemove = document.getElementById(videoNum)
-  videoToRemove.parentNode.replaceChild(video, videoToRemove);
+/**
+ * @param {String} HTML representing a single element
+ * @return {Element}
+ */
+function htmlToElement(html) {
+  var template = document.createElement('template');
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
 }
 
+var td = htmlToElement('<td>foo</td>'),
+  div = htmlToElement('<div><span>nested</span> <span>stuff</span></div>');
+
+function addVideo(arg) {
+  var videoNum = nameVideo(arguments[0]);
+  let tvIndex = arguments[0] - 1;
+  var video = htmlToElement('<video class="vid" id="' + videoNum + '" controls muted></video>');
+  // video.setAttribute('id', videoNum);
+  // video.setAttribute(controls);
+  // video.setAttribute(muted);
+  // video.setAttribute('class', 'vid');
+  videoToRemove = document.getElementById(videoNum)
+  videoToRemove.parentNode.replaceChild(video, videoToRemove);
+  document.getElementById(videoNum).addEventListener('loadeddata', (event) => {
+    window.playing[tvIndex] = 1;
+    console.log('loadeddata ' + videoNum);
+  });
+}
+
+document.getElementById('video1').addEventListener('loadeddata', (event) => {
+  window.playing[0] = 1;
+  console.log('loadeddata 1');
+});
+
+document.getElementById('video2').addEventListener('loadeddata', (event) => {
+  window.playing[1] = 1;
+  console.log('loadeddata 2');
+});
+
+document.getElementById('video3').addEventListener('loadeddata', (event) => {
+  window.playing[2] = 1;
+  console.log('loadeddata 3');
+});
+
+document.getElementById('video4').addEventListener('loadeddata', (event) => {
+  window.playing[3] = 1;
+  console.log('loadeddata 4');
+});
+
 function addYouTube(arg) {
-  var vidnum = nameVideo(arguments[0]);
-  var iframe = document.createElement('iframe');
-  iframe.setAttribute('id', vidnum);
-  iframe.setAttribute('allowfullscreen', '');
-  iframe.setAttribute('width', '560');
-  iframe.setAttribute('height', '315');
-  iframe.setAttribute('src', '//www.youtube.com/embed/YE7VzlLtp-4');
-  videoToRemove = document.getElementById(vidnum)
+  var vidNum = nameVideo(arguments[0]);
+  var iframe = htmlToElement('<iframe id="' + vidNum + '" width="100%" height="100%" src="https://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&mute=1"></iframe>');
+  // var iframe = document.createElement('iframe');
+  // iframe.setAttribute('id', vidnum);
+  // iframe.setAttribute('allowfullscreen', '');
+  // iframe.setAttribute('width', '560');
+  // iframe.setAttribute('height', '315');
+  // iframe.setAttribute('src', '//www.youtube.com/embed/YE7VzlLtp-4');
+  videoToRemove = document.getElementById(vidNum);
   videoToRemove.parentNode.replaceChild(iframe, videoToRemove);
 }
 
 function isYT(item) {
-  let pattern = new RegExp("(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be.com\/\S*(?:watch|embed)(?:(?:(?=\/[^&\s\?]+(?!\S))\/)|(?:\S*v=|v\/)))([^&\s\?]+)");
+  let pattern = new RegExp("(https?)?(:\/\/)?(www.)?(?:youtube\.com|youtu\.be)\/(?!(feed\/|channel\/|c\/)).*([A-Za-z0-9_-]){11}(&.*)?");
   if (pattern.test(item)) {
-   return true
+    return true
   } else {
-   return false
+    return false
   }
 }
 
 function next(arg) {
-  let tvNum = arguments[0]
-  let tvIndex = tvNum - 1
+  tvNum = arguments[0]
+  tvIndex = tvNum - 1
   if (window.goodstuff.length != 0) {
     window.playing[tvIndex] = 0;
-    if (isYT(window.goodstuff[window.toLoad])) {
-      addYouTube(tvNum)
-    } else {
-      addVideo(tvNum)
-    }
-    // if the one we're trying to load isnt the one that's currently playing
     if (skipcurrent()) {
-      let video = document.getElementById(nameVideo(tvNum));
-
-      document.getElementById(eval("'drop'+tvNum")).innerHTML = '<li>' + window.goodstuff[window.toLoad] + '</li>';
-      window.current.splice(eval("tvIndex"), 1, window.goodstuff[window.toLoad]);
+      let video = document.getElementById('video' + tvNum);
+      document.getElementById('drop' + tvNum).innerHTML = '<li>' + window.goodstuff[window.toLoad] + '</li>';
+      window.current.splice(eval('tvIndex'), 1, window.goodstuff[window.toLoad]);
+      if (isYT(window.goodstuff[window.toLoad])) {
+        addYouTube(tvNum);
+        let video = document.getElementById('video' + tvNum);
+        video.src = window.goodstuff[window.toLoad] + '?autoplay=1&mute=1'
+        //TODO needs to convert all youtube video urls to the embed code before loading above
+        console.log(video)
+      } else {
+        addVideo(tvNum);
+        let video = document.getElementById('video' + tvNum);
       if ((/\.mp4$/).test(window.goodstuff[window.toLoad])) {
         playmp4(tvNum);
       } else //if ((/m3u|\.ts/).test(window.goodstuff[window.toLoad]))
@@ -81,36 +118,38 @@ function next(arg) {
         //  } else {
         //    cantplay(tvNum);
       };
-    } else {
+    }} else {
       console.log("nothing in the queue that isn't on the grid");
     }
     //}
     if (window.all == 0) {
       console.log(window.current);
     }
-
     iterate();
-    if ((window.nexting[tvIndex] == 0 || window.nexting[tvIndex] == undefined)) {
-      console.log('nexting is 0 or undefined, setting to 1');
-      window.nexting[tvIndex] = 1;
-      setTimeout(function() {
-        if (window.playing[tvIndex] == 0) {
-          console.log('timeout, next ' + tvNum + ". nexting is 1, setting to 0");
-          window.nexting[tvIndex] = 0;
-          next(tvNum);
-        } else {
-          console.log("timeout " + tvNum + " passed")
-          window.nexting[tvIndex] = 0;
-          console.log('nexting is 1, setting to 0');
-        }
-      }, 3800, arg);
+    if (!isYT(window.current[tvIndex])) {
+      if ((window.nexting[tvIndex] == 0 || window.nexting[tvIndex] == undefined)) {
+        console.log('nexting is 0 or undefined, setting to 1');
+        window.nexting[tvIndex] = 1;
+
+        //TODO this timeout doesnt work right now so the videos will not autonext if they havent loaded
+        setTimeout(function() {
+          if (window.playing[tvIndex] == 0) {
+            console.log('timeout, next ' + tvNum + ". nexting is 1, next");
+            next(tvNum);
+          } else {
+            console.log("timeout " + tvNum + " passed")
+            window.nexting[tvIndex] = 0;
+            console.log('nexting is 1, setting to 0');
+          }
+        }, 8000, arg);
+      }
     }
   };
 };
 
 
 function loadhls(arg) {
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   if (Hls.isSupported()) {
     console.log('Loading HLS: ' + window.goodstuff[window.toLoad]);
     var config = {
@@ -120,7 +159,7 @@ function loadhls(arg) {
     hls.loadSource(window.goodstuff[window.toLoad]);
     hls.attachMedia(video);
     // hls.on(Hls.Events.MANIFEST_PARSED, function() {
-       video.play();
+    video.play();
     // });
   }
   // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
@@ -173,7 +212,7 @@ function skipcurrent() {
 
 function playmp4(arg) {
   console.log('mp4 found...');
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   video.src = window.goodstuff[window.toLoad];
   console.log('next ' + arguments[0] + ': ' + video.src);
   video.type = 'video/mp4';
@@ -184,7 +223,7 @@ function playmp4(arg) {
 
 function cantplay(arg) {
   if ((/\.mkv$/).test(window.goodstuff[window.toLoad])) {
-    let video = document.getElementById(nameVideo(arguments[0]));
+    let video = document.getElementById('video' + arguments[0]);
     video.src = window.goodstuff[window.toLoad];
     console.log('next ' + arguments[0] + ': mkv not supported on Firefox');
     video.type = 'video/x-matroska';
@@ -198,7 +237,7 @@ function cantplay(arg) {
 
 
 function start(arg) {
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   video.play();
 };
 
@@ -211,7 +250,7 @@ function startall() {
 };
 
 function skip(arg) {
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   video.currentTime = video.currentTime + 30;
 };
 
@@ -232,7 +271,7 @@ function stopall() {
 };
 
 function stop(arg) {
-  let video = document.getElementById(nameVideo(arguments[0]));
+  let video = document.getElementById('video' + arguments[0]);
   video.load();
 };
 
@@ -451,27 +490,6 @@ function autoNext4(e) {
     start('4');
   }
 }
-
-
-document.getElementById('video1').addEventListener('loadeddata', (event) => {
-  window.playing[0] = 1;
-  console.log('loadeddata 1');
-});
-
-document.getElementById('video2').addEventListener('loadeddata', (event) => {
-  window.playing[1] = 1;
-  console.log('loadeddata 2');
-});
-
-document.getElementById('video3').addEventListener('loadeddata', (event) => {
-  window.playing[2] = 1;
-  console.log('loadeddata 3');
-});
-
-document.getElementById('video4').addEventListener('loadeddata', (event) => {
-  window.playing[3] = 1;
-  console.log('loadeddata 4');
-});
 
 Mousetrap.bind(['4', 'l'], function() {
   next('1')
