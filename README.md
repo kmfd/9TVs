@@ -33,6 +33,13 @@ https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8
 
 # Changelog
 
+## 2021.01.1
+* All YouTube links work, automatically converted to embeds but preserves original url
+* Remove functionless(?) Looplist button
+* Only entering some of the 4 tv params is fine
+* Url logger outputs a real link now
+* Fixed the autonext for hls and mp4 mostly, sometimes a video will not load and you'll still have to next manually, mostly limited to mashing the next buttons a lot
+
 ## 2020.11.1
 * Fixed video box sizing for larger screens that are more responive to screen resizing
 
