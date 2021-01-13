@@ -81,6 +81,7 @@ http://www.streambox.fr/playlists/test_001/stream.m3u8
 https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8
 ```
 (another usable youtube playlist here: https://github.com/kmfd/kmfd.github.io/blob/main/worldcams%20youtube%20playlist.m3u)
+(example m3u8 here https://github.com/kmfd/9TVs/blob/master/4tvs/M3UEXAMPLE.m3u)
 
 
 # This project uses
