@@ -11,7 +11,7 @@ This new implementation is purely HTML5 using JS.
 You can also load in the initial video grid urls by URL parameter:
 Add "?tv1=" followed by the URL to load
 Each grid can be loaded this way:
-https://kmfd.github.io/?tv1=<URL1>&tv2=<URL2>&tv3=<URL3>&tv4=<URL4>
+`https://kmfd.github.io/?tv1=<URL1>&tv2=<URL2>&tv3=<URL3>&tv4=<URL4>`
 
 
 # Keyboard Controls
