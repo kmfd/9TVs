@@ -18,19 +18,20 @@ https://kmfd.github.io/?tv1=<URL1>&tv2=<URL2>&tv3=<URL3>&tv4=<URL4>
 
 numpad main control
 (For 4TVs, just use 4-5-1-2 numbers)
-
+```
     * -
 7 8 9 +
 4 5 6
 1 2 3
 Alt
-
+```
+```
 * = Loopnext: automatically load the next video if the first one reaches the end (non-YT only)
 - = Shuffle: shuffles the playlist
 + = Open: open file on computer (m3u/m3u8)
 Number = Next(n): next this screen on the grid
 Alt+Number = Skip 30 seconds on that screen
-
+```
 
 # GUI Controls
 
