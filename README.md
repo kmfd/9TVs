@@ -14,6 +14,7 @@ Each grid can be loaded this way:
 `https://kmfd.github.io/?tv1=<URL1>&tv2=<URL2>&tv3=<URL3>&tv4=<URL4>`
 
 
+
 # Keyboard Controls
 
 numpad main control
@@ -35,6 +36,7 @@ Alt+Number = Skip 30 seconds on that screen
 
 # GUI Controls
 
+```
 Document Button = Open file upload prompt (feed it one or more .m38/.m3u8 files, or text files in m3u format)
 Shuffle = Shuffles the playlist.
 
@@ -48,16 +50,18 @@ Start = (busted)
 Loops = this controls what behavior will happen when the end of the playing video is reached (.mp4) to automatically load the next one (Loops>Next) or reload the same one (Loops>Restart), or nothing (Loops>Off)
 Parse = This will go through the grid playlist and try to remove every line that is not a valid URL, usually not needed
 Log = This will output at the bottom of the page each URL currently playing on the grid followed by a link that will autoload them to save or share a grid.
-
+```
 
 # Additional notes
+
+```
 The grid playlist is added to and not subtracted from until the page is reloaded.
 The list will loop around to the beginning when you reach the end.
 Using the shuffle button can cause previously loaded urls to show up again before urls that have not yet been loaded.
 When you click onto a YouTube video, maybe to unmute or pause, the frame will capture your keyboard controls so you'll have to click elsewhere on the page (bottom left corner) to regain the 9TVs controls. (Tab can also accomplish this.)
 Start button does nothing currently.
 It should be fine to only include some of the URL parameters
-
+```
 
 
 
