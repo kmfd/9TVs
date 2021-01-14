@@ -40,7 +40,7 @@ Alt+Number = Skip 30 seconds on that screen
 Document Button = Open file upload prompt (feed it one or more .m38/.m3u8 files, or text files in m3u format)
 Shuffle = Shuffles the playlist.
 
-Next (N) = Process the next urls on the grid playlist to load one onto the indicated grid space
+Next (N) = Process the next urls on the grid playlist to load one onto the indicated grid space (will autonext until it finds one that loads (or youtube))
 Next All = Starts Nexting each video on the grid
 Skip30 (N) = Skip the indicated video 30 seconds forward (works with .m3u8 and .mp4)
 Skip30 All = Skips 30 seconds on each video on the grid
