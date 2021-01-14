@@ -29,11 +29,11 @@ Alt
 ```
 
 
-* = Loopnext: automatically load the next video if the first one reaches the end (non-YT only)
+\* = Loopnext: automatically load the next video if the first one reaches the end (non-YT only)
 
-- = Shuffle: shuffles the playlist
+\- = Shuffle: shuffles the playlist
 
-+ = Open: open file on computer (m3u/m3u8)
+\+ = Open: open file on computer (m3u/m3u8)
 
 Number = Next(n): next this screen on the grid
 
