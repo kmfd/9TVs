@@ -3,9 +3,9 @@
 
 
 # Description
-A 3x3 HTML5 Video grid to channel surf video files or HLS/TS streams organized by .m3u8 playlist.
+A 3x3 (currently 2x2) HTML5 Video grid to channel surf YouTube, HLS/TS streams or .mp4 videos organized by .m3u8 playlist.
 
-This used to be a project based on the VLC Web Plugin, but since browsers ended support for NPAPI plugins in favor of PPAPI, this was no longer a modern solution.
+This used to be a project based on the VLC Web Plugin, but since <a href="https://en.wikipedia.org/wiki/NPAPI#Support/deprecation">browsers ended support</a> for NPAPI plugins in favor of PPAPI, this was no longer a modern solution.
 This new implementation is purely HTML5 using JS.
 
 You can also load in the initial video grid urls by URL parameter:
@@ -17,8 +17,9 @@ Each grid can be loaded this way:
 
 # Keyboard Controls
 
-numpad main control
-(For 4TVs, just use 4-5-1-2 numbers)
+numpad can be used for main controls
+(For 4TVs, just use `4-5-1-2` numbers instead of the full 9)
+
 ```
     * -
 7 8 9 +
@@ -26,43 +27,58 @@ numpad main control
 1 2 3
 Alt
 ```
-```
+
+
 * = Loopnext: automatically load the next video if the first one reaches the end (non-YT only)
+
 - = Shuffle: shuffles the playlist
+
 + = Open: open file on computer (m3u/m3u8)
+
 Number = Next(n): next this screen on the grid
+
 Alt+Number = Skip 30 seconds on that screen
-```
 
 # GUI Controls
 
-```
 Document Button = Open file upload prompt (feed it one or more .m38/.m3u8 files, or text files in m3u format)
+
 Shuffle = Shuffles the playlist.
 
 Next (N) = Process the next urls on the grid playlist to load one onto the indicated grid space (will autonext until it finds one that loads (or youtube))
+
 Next All = Starts Nexting each video on the grid
+
 Skip30 (N) = Skip the indicated video 30 seconds forward (works with .m3u8 and .mp4)
+
 Skip30 All = Skips 30 seconds on each video on the grid
+
 Stop (N) = Stop the indicated video
+
 Stop All = Stop each video on the grid
+
 Start = (busted)
+
 Loops = this controls what behavior will happen when the end of the playing video is reached (.mp4) to automatically load the next one (Loops>Next) or reload the same one (Loops>Restart), or nothing (Loops>Off)
+
 Parse = This will go through the grid playlist and try to remove every line that is not a valid URL, usually not needed
+
 Log = This will output at the bottom of the page each URL currently playing on the grid followed by a link that will autoload them to save or share a grid.
-```
+
 
 # Additional notes
 
-```
 The grid playlist is added to and not subtracted from until the page is reloaded.
-The list will loop around to the beginning when you reach the end.
-Using the shuffle button can cause previously loaded urls to show up again before urls that have not yet been loaded.
-When you click onto a YouTube video, maybe to unmute or pause, the frame will capture your keyboard controls so you'll have to click elsewhere on the page (bottom left corner) to regain the 9TVs controls. (Tab can also accomplish this.)
-Start button does nothing currently.
-It should be fine to only include some of the URL parameters
-```
 
+The list will loop around to the beginning when you reach the end.
+
+Using the shuffle button can cause previously loaded urls to show up again before urls that have not yet been loaded.
+
+When you click onto a YouTube video, maybe to unmute or pause, the frame will capture your keyboard controls so you'll have to click elsewhere on the page (bottom left corner) to regain the 9TVs controls. (Tab can also accomplish this.)
+
+Start button does nothing currently.
+
+It should be fine to only include some of the URL parameters
 
 
 # Example Playlist
@@ -80,8 +96,10 @@ http://www.streambox.fr/playlists/test_001/stream.m3u8
 #EXTINF:-1,Test E
 https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8
 ```
-(another usable youtube playlist here: https://github.com/kmfd/kmfd.github.io/blob/main/worldcams%20youtube%20playlist.m3u)
-(example m3u8 here https://github.com/kmfd/9TVs/blob/master/4tvs/M3UEXAMPLE.m3u)
+(example youtube playlist featuring worldcams <a href="https://github.com/kmfd/kmfd.github.io/blob/main/worldcams%20youtube%20playlist.m3u">here</a> (from <a href="https://www.youtube.com/playlist?list=PL7CqcasaJQRPsJ1eTLaGQotEsDbQiaCNb">here</a>))
+
+
+(example HLS playlist with demo streams<a href="https://github.com/kmfd/9TVs/blob/master/4tvs/M3UEXAMPLE.m3u">here</a> (from <a href"https://bitmovin.com/mpeg-dash-hls-examples-sample-streams/">here</a>))
 
 
 # This project uses
