@@ -99,7 +99,7 @@ https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8
 (example youtube playlist featuring worldcams <a href="https://github.com/kmfd/kmfd.github.io/blob/main/worldcams%20youtube%20playlist.m3u">here</a> (from <a href="https://www.youtube.com/playlist?list=PL7CqcasaJQRPsJ1eTLaGQotEsDbQiaCNb">here</a>))
 
 
-(example HLS playlist with demo streams<a href="https://github.com/kmfd/9TVs/blob/master/4tvs/M3UEXAMPLE.m3u">here</a> (from <a href"https://bitmovin.com/mpeg-dash-hls-examples-sample-streams/">here</a>))
+(example HLS playlist with demo streams<a href="https://github.com/kmfd/9TVs/blob/master/4tvs/M3UEXAMPLE.m3u">here</a> (from <a href="https://bitmovin.com/mpeg-dash-hls-examples-sample-streams/">here</a>))
 
 
 # This project uses
