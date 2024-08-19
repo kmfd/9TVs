@@ -65,6 +65,8 @@ Parse = This will go through the grid playlist and try to remove every line that
 
 Log = This will output at the bottom of the page each URL currently playing on the grid followed by a link that will autoload them to save or share a grid.
 
+* Note that you can also drag-and-drop URLs or filepaths onto the text boxes below each video, and it will add the link to the playlist and play it on the grid you dropped it under.
+
 
 # Additional notes
 
@@ -78,7 +80,7 @@ When you click onto a YouTube video, maybe to unmute or pause, the frame will ca
 
 Start button does nothing currently.
 
-It should be fine to only include some of the URL parameters
+It is fine to only include some of the URL parameters.
 
 
 # Example Playlist
@@ -105,10 +107,20 @@ https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8
 # This project uses
 * hls.js
 * jquery.js
-* mousetrap.js
-
+* mousetrap.js (https://github.com/ccampbell/mousetrap)
+* h5utils.js (https://github.com/einsof9161/html5demos)
 
 # Changelog
+
+## 2024.19.8
+Refactor ninetvs.js some and restore drop event feature
+* Rewrite of Next function
+* Improve handling of 'tv1' URL params to keep playlist clean
+* Rewrite skipcurrent to ensure no duplicate URLs will get added to the grid
+* Improve console logging to make more clear what is happening
+* minor variable changes
+* Added/Restored ability to drag and drop URLs onto the textboxes under each grid video
+* Accommodate both Windows and Linux playlist formatting
 
 ## 2021.01.1
 * All YouTube links work, automatically converted to embeds but preserves original url
