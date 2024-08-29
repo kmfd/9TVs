@@ -112,7 +112,7 @@ https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8
 
 # Changelog
 
-## 2024.19.8
+## 2024.08.1
 Refactor ninetvs.js some and restore drop event feature
 * Rewrite of Next function
 * Improve handling of 'tv1' URL params to keep playlist clean
