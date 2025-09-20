@@ -136,12 +136,28 @@ function addTwitch(tvNum, newUrl) {
   script.onload = function() {
     var urlParts = newUrl.split('/');
     var channelOrVideoId = urlParts[urlParts.length - 1];
+    
+    console.log('Preparing domain for parent option...');
+    var referrer = document.referrer;
+    console.log('Referrer:', referrer);
+    var originalDomain;
+    try {
+    	originalDomain = new URL(referrer).hostname;
+        console.log('Original domain from referrer:', originalDomain);
+    } catch (error) {
+        console.error('Error getting original domain from referrer:', error);
+        originalDomain = document.location.origin.replace('https://', '').replace('http://', '');
+        console.log('Falling back to current origin:', originalDomain);
+    }
 
     var options = {
       width: '100%',
       autoplay: true,
-      muted: true
+      muted: true,
+      parent: [originalDomain]
     };
+
+    console.log('Parent option:', options.parent);
 
     if (urlParts.includes('videos')) {
       options.video = channelOrVideoId;
@@ -746,3 +762,4 @@ function logVideoUrls() {
   Mousetrap.bind(['*'], function() {
     document.getElementById("loopnext").click()
   });
+
